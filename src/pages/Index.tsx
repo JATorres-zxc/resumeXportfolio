@@ -1,4 +1,5 @@
 import { Mail, Github, Linkedin, ExternalLink, MapPin } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const Index = () => {
   return (
@@ -6,32 +7,37 @@ const Index = () => {
       <div className="container max-w-5xl py-12 md:py-20">
         {/* Header */}
         <header className="mb-12 md:mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2">
-            John Angelo Torres
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-4">
-            Full Stack Developer | Web and Mobile Applications
-          </p>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5" />
-              Cebu City, Philippines
-            </span>
-            <span className="hidden md:inline text-divider">·</span>
-            <div className="flex items-center gap-4">
-              <a href="mailto:gelodevelops@gmail.com" className="link-subtle flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5" />
-                <span>Email</span>
-              </a>
-              <a href="https://github.com/JATorres-zxc" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
-                <Github className="w-3.5 h-3.5" />
-                <span>GitHub</span>
-              </a>
-              <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
-                <Linkedin className="w-3.5 h-3.5" />
-                <span>LinkedIn</span>
-              </a>
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2">
+                John Angelo Torres
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                Full Stack Developer | Web and Mobile Applications
+              </p>
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" />
+                  Cebu City, Philippines
+                </span>
+                <span className="hidden md:inline text-divider">·</span>
+                <div className="flex items-center gap-4">
+                  <a href="mailto:gelodevelops@gmail.com" className="link-subtle flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>Email</span>
+                  </a>
+                  <a href="https://github.com/JATorres-zxc" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                    <Github className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                    <Linkedin className="w-3.5 h-3.5" />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
+              </div>
             </div>
+            <ThemeToggle />
           </div>
         </header>
 
