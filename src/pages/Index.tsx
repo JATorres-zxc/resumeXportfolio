@@ -7,27 +7,27 @@ const Index = () => {
         {/* Header */}
         <header className="mb-12 md:mb-16">
           <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2">
-            Alex Chen
+            John Angelo Torres
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-4">
-            Senior Software Engineer · AI Systems
+            Full Stack Developer | Web and Mobile Applications
           </p>
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5" />
-              San Francisco, CA
+              Cebu City, Philippines
             </span>
             <span className="hidden md:inline text-divider">·</span>
             <div className="flex items-center gap-4">
-              <a href="mailto:alex@example.com" className="link-subtle flex items-center gap-1.5">
+              <a href="mailto:gelodevelops@gmail.com" className="link-subtle flex items-center gap-1.5">
                 <Mail className="w-3.5 h-3.5" />
                 <span>Email</span>
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+              <a href="https://github.com/JATorres-zxc" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
                 <Github className="w-3.5 h-3.5" />
                 <span>GitHub</span>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+              <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
                 <Linkedin className="w-3.5 h-3.5" />
                 <span>LinkedIn</span>
               </a>
@@ -43,9 +43,7 @@ const Index = () => {
             <section>
               <h2 className="section-title">About</h2>
               <p className="text-foreground leading-relaxed">
-                Software engineer with 8+ years building scalable systems and machine learning infrastructure. 
-                Currently focused on LLM orchestration and real-time AI applications. 
-                Previously led engineering teams at high-growth startups and contributed to open-source ML frameworks.
+              Full-stack developer with professional experience building and maintaining production web applications. Strong background in end-to-end development, from system design and implementation to deployment and ongoing optimization. Known for delivering reliable, maintainable solutions, improving performance, and solving complex product and technical challenges.
               </p>
             </section>
 
@@ -54,32 +52,33 @@ const Index = () => {
               <h2 className="section-title">Experience</h2>
               <div className="space-y-6">
                 <ExperienceItem
-                  role="Senior AI Engineer"
-                  company="Anthropic"
-                  period="2022 — Present"
+                  role="Full Stack Developer"
+                  company="HQZen"
+                  period="Aug 2024 — Aug 2025"
                   highlights={[
-                    "Led development of real-time inference infrastructure serving 10M+ daily requests",
-                    "Designed and implemented distributed training pipelines for large language models",
-                    "Mentored team of 5 engineers on ML systems best practices"
+                    "Delivered production-ready features across backend and frontend, supporting internal and client-facing workflows used by 1000+ active users",
+                    "Optimized database queries and API endpoints, reducing average API response times by ~30% and improving overall application load performance",
+                    "Resolved high- and medium-priority bugs across the stack, reducing recurring production issues by ~40% and supporting consistent on-time sprint delivery"
                   ]}
                 />
                 <ExperienceItem
-                  role="Staff Software Engineer"
-                  company="Scale AI"
-                  period="2019 — 2022"
+                  role="Full Stack Developer Intern"
+                  company="HQZen"
+                  period="Jun 2024 — Aug 2024"
                   highlights={[
-                    "Architected data labeling platform processing 50TB+ daily",
-                    "Built ML model evaluation framework used across 200+ enterprise clients",
-                    "Reduced annotation latency by 40% through system optimizations"
+                    "Contributed to production codebase by implementing features and fixing bugs across Django-based APIs and Vue.js frontend components",
+                    "Participated in Agile development workflows including sprint planning, stand-ups, and code reviews, contributing to 2–3 sprint releases during the internship period",
+                    "Applied coding best practices and peer feedback to reduce review rework and improve code quality consistency within the team"
                   ]}
                 />
                 <ExperienceItem
-                  role="Software Engineer"
-                  company="Stripe"
-                  period="2016 — 2019"
+                  role="Freelance Web Developer"
+                  company="Self-Employed"
+                  period="2022 — 2025"
                   highlights={[
-                    "Developed fraud detection systems with 99.7% precision",
-                    "Contributed to core payments infrastructure serving millions of transactions"
+                    "Delivered web and application projects for clients across different industries, managing the full development lifecycle from requirements to deployment",
+                    "Designed and built full-stack solutions tailored to client needs, improving page load times by 20–35% through performance optimization and efficient API design",
+                    "Maintained and enhanced existing applications by fixing bugs, adding features, and improving reliability, leading to repeat clients and long-term engagements"
                   ]}
                 />
               </div>
@@ -87,23 +86,23 @@ const Index = () => {
 
             {/* Projects */}
             <section>
-              <h2 className="section-title">Selected Projects</h2>
+              <h2 className="section-title">Recent Projects</h2>
               <div className="space-y-4">
                 <ProjectItem
-                  name="VectorDB"
-                  description="High-performance vector database for semantic search, 10k+ GitHub stars"
-                  link="https://github.com"
+                  name="Specdoors"
+                  description="AI-powered door & frame estimating with Australian NCC compliance checks"
+                  link="https://specdoors-ai.vercel.app/"
                 />
                 <ProjectItem
-                  name="LLM-Router"
-                  description="Intelligent request routing for multi-model LLM deployments"
-                  link="https://github.com"
+                  name="Barzen Projects"
+                  description="A sleek, modern landing page with clean design and strong hierarchy."
+                  link="https://barzenprojects.com.au"
                 />
-                <ProjectItem
+                {/* <ProjectItem
                   name="ML-Pipeline"
                   description="End-to-end ML pipeline framework with automated feature engineering"
                   link="https://github.com"
-                />
+                /> */}
               </div>
             </section>
           </div>
@@ -116,19 +115,23 @@ const Index = () => {
               <div className="space-y-4">
                 <TechCategory
                   category="Languages"
-                  items={["Python", "TypeScript", "Go", "Rust", "SQL"]}
+                  items={["Python", "TypeScript", "JavaScript", "SQL"]}
                 />
                 <TechCategory
-                  category="ML/AI"
-                  items={["PyTorch", "TensorFlow", "JAX", "LangChain", "Hugging Face"]}
+                  category="Backend"
+                  items={["Django", "Node.js", "Supabase"]}
                 />
                 <TechCategory
-                  category="Infrastructure"
-                  items={["Kubernetes", "Docker", "AWS", "GCP", "Terraform"]}
+                  category="Frontend"
+                  items={["React", "Vue.js"]}
                 />
                 <TechCategory
-                  category="Data"
-                  items={["PostgreSQL", "Redis", "Kafka", "Spark", "Airflow"]}
+                  category="Databases"
+                  items={["PostgreSQL", "MySQL", "MongoDB"]}
+                />
+                <TechCategory
+                  category="Cloud & Deployment"
+                  items={["AWS", "Vercel", "Render", "Cloudflare R2"]}
                 />
               </div>
             </section>
@@ -138,12 +141,8 @@ const Index = () => {
               <h2 className="section-title">Education</h2>
               <div className="space-y-3">
                 <div>
-                  <p className="font-medium text-foreground">M.S. Computer Science</p>
-                  <p className="text-sm text-muted-foreground">Stanford University · 2016</p>
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">B.S. Computer Science</p>
-                  <p className="text-sm text-muted-foreground">UC Berkeley · 2014</p>
+                  <p className="font-medium text-foreground">BS Computer Science</p>
+                  <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2026</p>
                 </div>
               </div>
             </section>
@@ -153,12 +152,8 @@ const Index = () => {
               <h2 className="section-title">Certifications</h2>
               <div className="space-y-2">
                 <p className="text-sm">
-                  <span className="text-foreground">AWS Solutions Architect Professional</span>
-                  <span className="text-muted-foreground"> · 2023</span>
-                </p>
-                <p className="text-sm">
-                  <span className="text-foreground">Google Cloud ML Engineer</span>
-                  <span className="text-muted-foreground"> · 2022</span>
+                  <span className="text-foreground">AWS Certified Developer - Associate</span>
+                  <span className="text-muted-foreground"> · 2026</span>
                 </p>
               </div>
             </section>
@@ -184,7 +179,7 @@ const Index = () => {
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-divider">
           <p className="text-xs text-muted-foreground">
-            Last updated December 2024
+            Last updated December 2025
           </p>
         </footer>
       </div>
