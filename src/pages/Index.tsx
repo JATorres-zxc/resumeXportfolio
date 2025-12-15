@@ -93,10 +93,10 @@ const Index = () => {
             {/* Projects */}
             <section>
               <h2 className="section-title">Recent Projects</h2>
-              <div className="space-y-4">
+              <div className="space-y-1.5">
                 <ProjectItem
                   name="Specdoors"
-                  description="AI-powered door & frame estimating with Australian NCC compliance checks"
+                  description="AI-powered door & frame estimating with NCC compliance checks"
                   link="https://specdoors-ai.vercel.app/"
                 />
                 <ProjectItem
@@ -159,7 +159,7 @@ const Index = () => {
               <div className="space-y-2">
                 <p className="text-sm">
                   <span className="text-foreground">AWS Certified Developer - Associate</span>
-                  <span className="text-muted-foreground"> · 2026</span>
+                  {/* <span className="text-muted-foreground"> · 2026</span> */}
                 </p>
               </div>
             </section>
@@ -230,25 +230,35 @@ const ProjectItem = ({
   name: string;
   description: string;
   link?: string;
-}) => (
-  <div className="flex items-start justify-between gap-4">
-    <div>
-      <h3 className="font-medium text-foreground">{name}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
-    </div>
-    {link && (
+}) => {
+  const content = (
+    <>
+      <div>
+        <h3 className="font-medium text-foreground">{name}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </div>
+      {link && (
+        <ExternalLink className="w-4 h-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+      )}
+    </>
+  );
+
+  if (link) {
+    return (
       <a
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="link-subtle shrink-0 mt-0.5"
+        className="flex items-start justify-between gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:border-divider hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         aria-label={`View ${name} project`}
       >
-        <ExternalLink className="w-4 h-4" />
+        {content}
       </a>
-    )}
-  </div>
-);
+    );
+  }
+
+  return <div className="flex items-start justify-between gap-4">{content}</div>;
+};
 
 const TechCategory = ({
   category,
