@@ -165,7 +165,7 @@ const Index = () => {
             </section>
 
             {/* Community */}
-            <section>
+            {/* <section>
               <h2 className="section-title">Community</h2>
               <div className="space-y-2 text-sm">
                 <p className="text-muted-foreground">
@@ -178,7 +178,7 @@ const Index = () => {
                   <span className="text-foreground">Mentor</span> — AI/ML engineering bootcamps
                 </p>
               </div>
-            </section>
+            </section> */}
           </div>
         </div>
 
