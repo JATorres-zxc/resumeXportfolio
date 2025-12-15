@@ -48,7 +48,7 @@ const Index = () => {
             {/* About */}
             <section>
               <h2 className="section-title">About</h2>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground leading-relaxed text-justify">
               Full-stack developer with professional experience building and maintaining production web applications. Strong background in end-to-end development, from system design and implementation to deployment and ongoing optimization. Known for delivering reliable, maintainable solutions, improving performance, and solving complex product and technical challenges.
               </p>
             </section>
@@ -214,7 +214,7 @@ const ExperienceItem = ({
     </div>
     <ul className="space-y-1">
       {highlights.map((highlight, index) => (
-        <li key={index} className="text-sm text-muted-foreground leading-relaxed">
+        <li key={index} className="text-sm text-muted-foreground leading-relaxed text-justify">
           {highlight}
         </li>
       ))}
