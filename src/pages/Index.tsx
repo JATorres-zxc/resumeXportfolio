@@ -1,9 +1,25 @@
-import { Mail, Github, Linkedin, ExternalLink, MapPin } from "lucide-react";
+import { Mail, Github, Linkedin, ExternalLink, MapPin, MessageCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Snowfall from "react-snowfall";
 
 const Index = () => {
+  // Show snowfall only during "ber" months (September 1 - December 31)
+  const currentMonth = new Date().getMonth(); // 0-indexed: 8=Sept, 9=Oct, 10=Nov, 11=Dec
+  const isBerMonth = currentMonth >= 8 && currentMonth <= 11;
+
   return (
     <div className="min-h-screen bg-background">
+      {isBerMonth && (
+        <Snowfall
+          style={{
+            position: 'fixed',
+            width: '100vw',
+            height: '100vh',
+            zIndex: 9999,
+            pointerEvents: 'none'
+          }}
+        />
+      )}
       <div className="container max-w-5xl py-12 md:py-20">
         {/* Header */}
         <header className="mb-12 md:mb-16">
@@ -33,6 +49,10 @@ const Index = () => {
                   <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
                     <Linkedin className="w-3.5 h-3.5" />
                     <span>LinkedIn</span>
+                  </a>
+                  <a href="https://wa.me/639380655783" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>WhatsApp</span>
                   </a>
                 </div>
               </div>
