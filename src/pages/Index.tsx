@@ -1,11 +1,33 @@
-import { Mail, Github, Linkedin, ExternalLink, MapPin, MessageCircle } from "lucide-react";
+import { Mail, Github, Linkedin, ExternalLink, MapPin, MessageCircle, Clock } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Snowfall from "react-snowfall";
+import { useState, useEffect } from "react";
 
 const Index = () => {
   // Show snowfall only during "ber" months (September 1 - December 31)
   const currentMonth = new Date().getMonth(); // 0-indexed: 8=Sept, 9=Oct, 10=Nov, 11=Dec
   const isBerMonth = currentMonth >= 8 && currentMonth <= 11;
+
+  // Local time state
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', {
+      timeZone: 'Asia/Manila',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -20,7 +42,20 @@ const Index = () => {
           }}
         />
       )}
-      <div className="container max-w-5xl py-12 md:py-20">
+
+      {/* Local Time Display */}
+      <div className="bg-surface-subtle/50">
+        <div className="container max-w-5xl">
+          <div className="flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground">
+            <Clock className="w-3.5 h-3.5" />
+            <span className="font-medium">{formatTime(currentTime)}</span>
+            <span className="text-divider">·</span>
+            <span>GMT+8 (Cebu, Philippines)</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="container max-w-5xl py-6 md:py-8">
         {/* Header */}
         <header className="mb-12 md:mb-16">
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
@@ -28,10 +63,10 @@ const Index = () => {
               <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2">
                 John Angelo Torres
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+              <p className="text-lg md:text-xl text-muted-foreground mb-2 md:mb-4">
                 Full Stack Developer | Web and Mobile Applications
               </p>
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5" />
                   Cebu City, Philippines
@@ -57,7 +92,9 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
           </div>
         </header>
 
