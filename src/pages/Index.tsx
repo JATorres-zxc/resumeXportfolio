@@ -115,6 +115,16 @@ const Index = () => {
               <h2 className="section-title">Experience</h2>
               <div className="space-y-6">
                 <ExperienceItem
+                  role="Freelance Web Developer"
+                  company="Self-Employed"
+                  period="2022 — 2026"
+                  highlights={[
+                    "Delivered web and application projects for clients across different industries, managing the full development lifecycle from requirements to deployment",
+                    "Designed and built full-stack solutions tailored to client needs, improving page load times by 20–35% through performance optimization and efficient API design",
+                    "Maintained and enhanced existing applications by fixing bugs, adding features, and improving reliability, leading to repeat clients and long-term engagements"
+                  ]}
+                />
+                <ExperienceItem
                   role="Full Stack Developer"
                   company="HQZen"
                   period="Aug 2024 — Aug 2025"
@@ -134,16 +144,6 @@ const Index = () => {
                     "Applied coding best practices and peer feedback to reduce review rework and improve code quality consistency within the team"
                   ]}
                 />
-                <ExperienceItem
-                  role="Freelance Web Developer"
-                  company="Self-Employed"
-                  period="2022 — 2025"
-                  highlights={[
-                    "Delivered web and application projects for clients across different industries, managing the full development lifecycle from requirements to deployment",
-                    "Designed and built full-stack solutions tailored to client needs, improving page load times by 20–35% through performance optimization and efficient API design",
-                    "Maintained and enhanced existing applications by fixing bugs, adding features, and improving reliability, leading to repeat clients and long-term engagements"
-                  ]}
-                />
               </div>
             </section>
 
@@ -152,14 +152,19 @@ const Index = () => {
               <h2 className="section-title">Recent Projects</h2>
               <div className="space-y-1.5">
                 <ProjectItem
-                  name="Specdoors"
-                  description="AI-powered door & frame estimating with NCC compliance checks"
-                  link="https://specdoors-ai.vercel.app/"
+                  name="RentalizerAI"
+                  description="Live personalized guidance and AI-powered tools to find markets, acquire properties, and automate operations."
+                  link="https://rentalizer.ai/"
                 />
                 <ProjectItem
-                  name="Barzen Projects"
-                  description="A sleek, modern landing page with clean design and strong hierarchy."
-                  link="https://barzenprojects.com.au"
+                  name="Bali.Live Sessions"
+                  description="A sleek, modern promo page spotlighting nightlife experiences with bold visuals."
+                  link="https://balilivesessions.com/"
+                />
+                <ProjectItem
+                  name="The Sync God"
+                  description="AI-powered sync assistant to improve tracks, interpret briefs, and deliver competitive music for ads, TV, film, trailers, sports, and brand content."
+                  link="https://syncleague.vercel.app/"
                 />
                 {/* <ProjectItem
                   name="ML-Pipeline"
@@ -186,7 +191,11 @@ const Index = () => {
                 />
                 <TechCategory
                   category="Frontend"
-                  items={["React", "Vue.js"]}
+                  items={["React", "Vue.js", "Tailwind"]}
+                />
+                <TechCategory
+                  category="Testing"
+                  items={["Playwright", "Jest", "Vitest"]}
                 />
                 <TechCategory
                   category="Databases"
@@ -194,7 +203,7 @@ const Index = () => {
                 />
                 <TechCategory
                   category="Cloud & Deployment"
-                  items={["AWS", "Vercel", "Render", "Cloudflare R2"]}
+                  items={["AWS", "Vercel", "Render", "Cloudflare R2", "IONOS"]}
                 />
               </div>
             </section>
@@ -206,6 +215,7 @@ const Index = () => {
                 <div>
                   <p className="font-medium text-foreground">BS Computer Science</p>
                   <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2026</p>
+                  <p className="text-xs text-muted-foreground/70">Thesis focus: Machine Learning for Smart Contracts</p>
                 </div>
               </div>
             </section>
