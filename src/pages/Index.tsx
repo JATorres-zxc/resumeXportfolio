@@ -162,9 +162,9 @@ const Index = () => {
                   link="https://balilivesessions.com/"
                 />
                 <ProjectItem
-                  name="The Sync God"
-                  description="AI-powered sync assistant to improve tracks, interpret briefs, and deliver competitive music for ads, TV, film, trailers, sports, and brand content."
-                  link="https://syncleague.vercel.app/"
+                  name="TheLookBookAI"
+                  description="The premier platform connecting models, photographers, and agencies worldwide."
+                  link="https://thelookbook.ai/"
                 />
                 {/* <ProjectItem
                   name="ML-Pipeline"
