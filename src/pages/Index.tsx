@@ -214,7 +214,7 @@ const Index = () => {
               <div className="space-y-3">
                 <div>
                   <p className="font-medium text-foreground">BS Computer Science</p>
-                  <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2026</p>
+                  <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2025</p>
                   <p className="text-xs text-muted-foreground/70">Thesis focus: Machine Learning for Smart Contracts</p>
                 </div>
               </div>
