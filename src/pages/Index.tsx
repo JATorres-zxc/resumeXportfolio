@@ -194,6 +194,17 @@ const Index = () => {
                   items={["React", "Vue.js", "Tailwind"]}
                 />
                 <TechCategory
+                  category="Mobile"
+                  items={[
+                    "React Native",
+                    "Flutter",
+                    "Expo",
+                    "TestFlight",
+                    "App Store Connect",
+                    "Google Play Console",
+                  ]}
+                />
+                <TechCategory
                   category="Testing"
                   items={["Playwright", "Jest", "Vitest"]}
                 />
