@@ -152,9 +152,9 @@ const Index = () => {
               <h2 className="section-title">Recent Projects</h2>
               <div className="space-y-1.5">
                 <ProjectItem
-                  name="RentalizerAI"
-                  description="Live personalized guidance and AI-powered tools to find markets, acquire properties, and automate operations."
-                  link="https://rentalizer.ai/"
+                  name="TheLookBookAI"
+                  description="The premier platform connecting models, photographers, and agencies worldwide."
+                  link="https://thelookbook.ai/"
                 />
                 <ProjectItem
                   name="Bali.Live Sessions"
@@ -162,9 +162,9 @@ const Index = () => {
                   link="https://balilivesessions.com/"
                 />
                 <ProjectItem
-                  name="TheLookBookAI"
-                  description="The premier platform connecting models, photographers, and agencies worldwide."
-                  link="https://thelookbook.ai/"
+                  name="RentalizerAI"
+                  description="Live personalized guidance and AI-powered tools to find markets, acquire properties, and automate operations."
+                  link="https://rentalizer.ai/"
                 />
                 {/* <ProjectItem
                   name="ML-Pipeline"
