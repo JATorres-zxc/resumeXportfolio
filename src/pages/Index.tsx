@@ -157,9 +157,9 @@ const Index = () => {
                   link="https://thelookbook.ai/"
                 />
                 <ProjectItem
-                  name="Bali.Live Sessions"
-                  description="A sleek, modern promo page spotlighting nightlife experiences with bold visuals."
-                  link="https://balilivesessions.com/"
+                  name="Custom Clad"
+                  description="Commercial cladding fabricator and installer site showcasing end-to-end design, manufacture, supply, and installation across Victoria and Queensland."
+                  link="https://customclad.com.au/"
                 />
                 <ProjectItem
                   name="RentalizerAI"
