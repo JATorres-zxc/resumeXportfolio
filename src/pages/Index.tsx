@@ -106,7 +106,8 @@ const Index = () => {
             <section>
               <h2 className="section-title">About</h2>
               <p className="text-foreground leading-relaxed sm:text-justify">
-                I'm a full stack developer with 4+ years of experience building production web applications for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm an AWS Certified Developer – Associate and open to remote roles worldwide.
+                I'm a full stack developer with 4+ years of experience building production web applications for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm open to remote roles worldwide.
+                {/* Hidden until received: I'm an AWS Certified Developer – Associate. */}
               </p>
             </section>
 
@@ -252,8 +253,8 @@ const Index = () => {
               </div>
             </section>
 
-            {/* Certifications */}
-            <section>
+            {/* Certifications — hidden until received */}
+            {/* <section>
               <h2 className="section-title">Certifications</h2>
               <div className="space-y-2">
                 <p className="text-sm">
@@ -261,7 +262,7 @@ const Index = () => {
                   <span className="text-muted-foreground"> · 2026</span>
                 </p>
               </div>
-            </section>
+            </section> */}
 
             {/* Community */}
             {/* <section>
