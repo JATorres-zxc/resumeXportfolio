@@ -50,7 +50,7 @@ const Index = () => {
             <Clock className="w-3.5 h-3.5" />
             <span className="font-medium">{formatTime(currentTime)}</span>
             <span className="text-divider">·</span>
-            <span>GMT+8 (Cebu, Philippines)</span>
+            <span>GMT+8 (Manila, Philippines)</span>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@ const Index = () => {
               <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5" />
-                  Cebu City, Philippines
+                  Manila, Philippines
                 </span>
                 <span className="hidden md:inline text-divider">·</span>
                 <div className="flex items-center gap-4">
@@ -105,8 +105,8 @@ const Index = () => {
             {/* About */}
             <section>
               <h2 className="section-title">About</h2>
-              <p className="text-foreground leading-relaxed text-justify">
-              Full-stack developer with professional experience building and maintaining production web applications. Strong background in end-to-end development, from system design and implementation to deployment and ongoing optimization. Known for delivering reliable, maintainable solutions, improving performance, and solving complex product and technical challenges.
+              <p className="text-foreground leading-relaxed sm:text-justify">
+                I'm a full stack developer with 4+ years of experience building production web applications for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm an AWS Certified Developer – Associate and open to remote roles worldwide.
               </p>
             </section>
 
@@ -115,34 +115,54 @@ const Index = () => {
               <h2 className="section-title">Experience</h2>
               <div className="space-y-6">
                 <ExperienceItem
-                  role="Freelance Web Developer"
-                  company="Self-Employed"
-                  period="2022 — 2026"
-                  highlights={[
-                    "Delivered web and application projects for clients across different industries, managing the full development lifecycle from requirements to deployment",
-                    "Designed and built full-stack solutions tailored to client needs, improving page load times by 20–35% through performance optimization and efficient API design",
-                    "Maintained and enhanced existing applications by fixing bugs, adding features, and improving reliability, leading to repeat clients and long-term engagements"
+                  role="Freelance Full Stack Developer"
+                  company="Self-Employed · Remote"
+                  period="2022 — Present"
+                  projects={[
+                    {
+                      name: "Rentalizer",
+                      link: "https://rentalizer.ai/",
+                      role: "Solo Developer",
+                      highlights: [
+                        "Built a Node.js/React subscription platform end to end for a real estate coaching business with 500+ paying users.",
+                        "Integrated OpenAI with RentCast and AirDNA data for AI market analysis, property recommendations, and student Q&A.",
+                        "Built AI tools for the coach to send personalized student recommendations, and implemented Stripe recurring billing.",
+                      ],
+                      tech: ["React", "Node.js", "OpenAI", "Stripe", "RentCast", "AirDNA"],
+                    },
+                    {
+                      name: "TheLookBook.AI",
+                      link: "https://thelookbook.ai/",
+                      role: "Lead Developer",
+                      highlights: [
+                        "Led development of a Node.js/React marketplace connecting models, photographers, and agencies, with 100+ paying users.",
+                        "Built Stripe subscriptions, a booking calendar, real-time messaging with Socket.io, and AI tools for casting matches and portfolio feedback.",
+                        "Interviewed and hired a part-time developer; assigned tasks, reviewed code, and coordinated releases with QA in a 4-person team.",
+                        "Developing the React Native (Expo) mobile version of the platform, extending it with native mobile features.",
+                      ],
+                      tech: ["React", "Node.js", "Socket.io", "Stripe", "React Native", "Expo"],
+                    },
+                    {
+                      name: "Other client work",
+                      highlights: [
+                        "Built internal admin dashboards for 3+ clients, including inventory and order management for an apparel brand.",
+                        "Wrote Jest and pytest unit tests, plus Playwright end-to-end tests for critical flows like auth and payments.",
+                        "Deployed apps on Vercel, Render, AWS, and VPS using Docker and GitHub/GitLab CI/CD pipelines.",
+                        "Set up Grafana, Prometheus, and Sentry for monitoring and error tracking on every production app shipped.",
+                      ],
+                    },
                   ]}
                 />
                 <ExperienceItem
                   role="Full Stack Developer"
-                  company="HQZen"
-                  period="Aug 2024 — Aug 2025"
+                  company="HQZen · Cebu, PH (Hybrid) · Promoted from Intern"
+                  period="2024 — 2025"
                   highlights={[
-                    "Delivered production-ready features across backend and frontend, supporting internal and client-facing workflows used by 1000+ active users",
-                    "Optimized database queries and API endpoints, reducing average API response times by ~30% and improving overall application load performance",
-                    "Resolved high- and medium-priority bugs across the stack, reducing recurring production issues by ~40% and supporting consistent on-time sprint delivery"
+                    "Co-built the scheduling system, a core feature of a time-tracking and recruitment SaaS used by 1,000+ active users.",
+                    "Developed recurring shifts, timezone-aware scheduling, approval workflows, and time-off conflict detection across the Django REST API and Vue.js UI.",
+                    "Promoted from intern to full-time in 2 months; took part in sprint planning and code reviews on the 8-person core Time & Money team.",
                   ]}
-                />
-                <ExperienceItem
-                  role="Full Stack Developer Intern"
-                  company="HQZen"
-                  period="Jun 2024 — Aug 2024"
-                  highlights={[
-                    "Contributed to production codebase by implementing features and fixing bugs across Django-based APIs and Vue.js frontend components",
-                    "Participated in Agile development workflows including sprint planning, stand-ups, and code reviews, contributing to 2–3 sprint releases during the internship period",
-                    "Applied coding best practices and peer feedback to reduce review rework and improve code quality consistency within the team"
-                  ]}
+                  tech={["Django", "Django REST Framework", "Vue.js"]}
                 />
               </div>
             </section>
@@ -183,38 +203,39 @@ const Index = () => {
               <div className="space-y-4">
                 <TechCategory
                   category="Languages"
-                  items={["Python", "TypeScript", "JavaScript", "SQL"]}
-                />
-                <TechCategory
-                  category="Backend"
-                  items={["Django", "Node.js", "Supabase"]}
+                  items={["JavaScript", "TypeScript", "Python", "SQL"]}
                 />
                 <TechCategory
                   category="Frontend"
-                  items={["React", "Vue.js", "Tailwind"]}
+                  items={["React", "Vue.js", "Tailwind CSS", "HTML", "CSS"]}
                 />
                 <TechCategory
                   category="Mobile"
-                  items={[
-                    "React Native",
-                    "Flutter",
-                    "Expo",
-                    "TestFlight",
-                    "App Store Connect",
-                    "Google Play Console",
-                  ]}
+                  items={["React Native", "Expo", "Flutter", "TestFlight", "App Store Connect", "Google Play Console"]}
                 />
                 <TechCategory
-                  category="Testing"
-                  items={["Playwright", "Jest", "Vitest"]}
+                  category="Backend"
+                  items={["Node.js", "Express.js", "Django", "Django REST Framework", "REST APIs", "Socket.io", "Supabase"]}
                 />
                 <TechCategory
                   category="Databases"
                   items={["PostgreSQL", "MySQL", "MongoDB"]}
                 />
                 <TechCategory
-                  category="Cloud & Deployment"
-                  items={["AWS", "Vercel", "Render", "Cloudflare R2", "IONOS"]}
+                  category="Cloud & DevOps"
+                  items={["AWS", "Cloudflare", "Docker", "Vercel", "Render", "IONOS", "GitHub Actions", "GitLab CI/CD"]}
+                />
+                <TechCategory
+                  category="Monitoring"
+                  items={["Grafana", "Prometheus", "Sentry"]}
+                />
+                <TechCategory
+                  category="Testing"
+                  items={["Jest", "Vitest", "React Testing Library", "Playwright", "pytest"]}
+                />
+                <TechCategory
+                  category="APIs & Integrations"
+                  items={["OpenAI", "Stripe", "Google Maps", "OpenStreetMap", "RentCast", "AirDNA", "ThetaData", "Interactive Brokers (IBKR)"]}
                 />
               </div>
             </section>
@@ -226,7 +247,7 @@ const Index = () => {
                 <div>
                   <p className="font-medium text-foreground">BS Computer Science</p>
                   <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2025</p>
-                  <p className="text-xs text-muted-foreground/70">Thesis focus: Machine Learning for Smart Contracts</p>
+                  <p className="text-xs text-muted-foreground/70">Thesis: Machine learning with a focus on smart contracts</p>
                 </div>
               </div>
             </section>
@@ -237,7 +258,7 @@ const Index = () => {
               <div className="space-y-2">
                 <p className="text-sm">
                   <span className="text-foreground">AWS Certified Developer - Associate</span>
-                  {/* <span className="text-muted-foreground"> · 2026</span> */}
+                  <span className="text-muted-foreground"> · 2026</span>
                 </p>
               </div>
             </section>
@@ -263,7 +284,7 @@ const Index = () => {
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-divider">
           <p className="text-xs text-muted-foreground">
-            Last updated December 2025
+            Last updated October 2026
           </p>
         </footer>
       </div>
@@ -271,16 +292,43 @@ const Index = () => {
   );
 };
 
+type ExperienceProject = {
+  name: string;
+  link?: string;
+  role?: string;
+  highlights: string[];
+  tech?: string[];
+};
+
+const TechLine = ({ tech }: { tech?: string[] }) =>
+  tech && tech.length > 0 ? (
+    <p className="mt-2 text-xs text-muted-foreground/70">{tech.join(" · ")}</p>
+  ) : null;
+
+const HighlightList = ({ highlights }: { highlights: string[] }) => (
+  <ul className="space-y-1">
+    {highlights.map((highlight, index) => (
+      <li key={index} className="text-sm text-muted-foreground leading-relaxed sm:text-justify">
+        {highlight}
+      </li>
+    ))}
+  </ul>
+);
+
 const ExperienceItem = ({
   role,
   company,
   period,
   highlights,
+  tech,
+  projects,
 }: {
   role: string;
   company: string;
   period: string;
-  highlights: string[];
+  highlights?: string[];
+  tech?: string[];
+  projects?: ExperienceProject[];
 }) => (
   <div className="experience-item">
     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
@@ -290,13 +338,35 @@ const ExperienceItem = ({
       </div>
       <span className="text-sm text-muted-foreground whitespace-nowrap">{period}</span>
     </div>
-    <ul className="space-y-1">
-      {highlights.map((highlight, index) => (
-        <li key={index} className="text-sm text-muted-foreground leading-relaxed text-justify">
-          {highlight}
-        </li>
-      ))}
-    </ul>
+    {highlights && <HighlightList highlights={highlights} />}
+    <TechLine tech={tech} />
+    {projects && (
+      <div className="mt-4 space-y-5">
+        {projects.map((project) => (
+          <div key={project.name}>
+            <p className="text-sm font-medium text-foreground mb-1">
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-divider underline-offset-4 hover:decoration-foreground transition-colors"
+                >
+                  {project.name}
+                </a>
+              ) : (
+                project.name
+              )}
+              {project.role && (
+                <span className="font-normal text-muted-foreground"> · {project.role}</span>
+              )}
+            </p>
+            <HighlightList highlights={project.highlights} />
+            <TechLine tech={project.tech} />
+          </div>
+        ))}
+      </div>
+    )}
   </div>
 );
 
