@@ -1,32 +1,18 @@
-import { Mail, Github, Linkedin, ExternalLink, MapPin, MessageCircle, Clock } from "lucide-react";
+import { Mail, Github, Linkedin, ExternalLink, MapPin, MessageCircle, Download, Check } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LocalTime } from "@/components/local-time";
+import { toast } from "@/components/ui/sonner";
 import Snowfall from "react-snowfall";
-import { useState, useEffect } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
+
+const EMAIL = "gelodevelops@gmail.com";
+const RESUME_PDF = "/John_Angelo_Torres_Resume.pdf";
+// Page 1 of the PDF rendered to an image; regenerate when the PDF changes (see IMPROVEMENTS.md, W3)
+const RESUME_PREVIEW = "/resume-preview.webp";
 
 const Index = () => {
   // Show snowfall only in December
   const isDecember = new Date().getMonth() === 11; // 0-indexed
-
-  // Local time state
-  const [currentTime, setCurrentTime] = useState(new Date());
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      timeZone: 'Asia/Manila',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    });
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -48,55 +34,56 @@ const Index = () => {
       {/* Local Time Display */}
       <div className="relative z-10 bg-surface-subtle/50">
         <div className="container max-w-5xl">
-          <div className="flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground">
-            <Clock className="w-3.5 h-3.5" />
-            <span className="font-medium">{formatTime(currentTime)}</span>
-            <span className="text-divider">·</span>
-            <span>GMT+8 (Manila, Philippines)</span>
-          </div>
+          <LocalTime />
         </div>
       </div>
 
       <div className="container relative z-10 max-w-5xl py-6 md:py-8">
-        {/* Header */}
-        <header className="relative mb-10 md:mb-12">
-          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-            <div>
-              <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2 pr-20 md:pr-0">
-                John Angelo Torres
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-2 md:mb-4">
-                Full Stack Developer | Web and Mobile Applications
-              </p>
-              <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5" />
-                  Manila, Philippines
-                </span>
-                <span className="hidden md:inline text-divider">·</span>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <a href="mailto:gelodevelops@gmail.com" className="link-subtle flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Email</span>
-                  </a>
-                  <a href="https://github.com/JATorres-zxc" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
-                    <Github className="w-3.5 h-3.5" />
-                    <span>GitHub</span>
-                  </a>
-                  <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
-                    <Linkedin className="w-3.5 h-3.5" />
-                    <span>LinkedIn</span>
-                  </a>
-                  <a href="https://wa.me/639380655783" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5" />
-                    <span>WhatsApp</span>
-                  </a>
-                </div>
+        {/* Header — same 12-column grid as <main>, so the status lines up with the right column below */}
+        <header className="relative mb-10 md:mb-12 md:grid md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-7">
+            <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2 pr-20 md:pr-0 md:whitespace-nowrap">
+              John Angelo Torres
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-2 md:mb-4">
+              Full Stack Developer | Web and Mobile Applications
+            </p>
+            <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5" />
+                Manila, Philippines
+              </span>
+              <span className="hidden lg:inline text-divider">·</span>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                <CopyEmailLink />
+                <a href="https://github.com/JATorres-zxc" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                  <Github className="w-3.5 h-3.5" />
+                  <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/john-angelo-torres-75b561349/" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                  <Linkedin className="w-3.5 h-3.5" />
+                  <span>LinkedIn</span>
+                </a>
+                <a href="https://wa.me/639380655783" target="_blank" rel="noopener noreferrer" className="link-subtle flex items-center gap-1.5">
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </a>
+                {/* On mobile the top-right corner only fits the theme toggle */}
+                <a href={RESUME_PDF} download className="link-subtle flex items-center gap-1.5 md:hidden">
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Résumé<span className="sr-only"> (PDF)</span></span>
+                </a>
               </div>
             </div>
-            <div className="absolute right-0 top-1 md:static">
-              <ThemeToggle />
+          </div>
+          <div className="mt-5 md:mt-0 md:col-span-5 md:flex md:flex-col md:justify-between">
+            <div className="md:flex md:items-start md:justify-between">
+              <ResumeDownload />
+              <div className="absolute right-0 top-1 md:static">
+                <ThemeToggle />
+              </div>
             </div>
+            <AvailabilityStatus />
           </div>
         </header>
 
@@ -127,7 +114,7 @@ const Index = () => {
                       link: "https://rentalizer.ai/",
                       role: "Solo Developer",
                       highlights: [
-                        "Built a Node.js/React subscription platform end to end for a real estate coaching business with 500+ paying users.",
+                        "Built a Node.js/React subscription platform end to end for a real estate coaching business with **500+ paying users**.",
                         "Integrated OpenAI with RentCast and AirDNA data for AI market analysis, property recommendations, and student Q&A.",
                         "Built AI tools for the coach to send personalized student recommendations, and implemented Stripe recurring billing.",
                       ],
@@ -138,7 +125,7 @@ const Index = () => {
                       link: "https://thelookbook.ai/",
                       role: "Lead Developer",
                       highlights: [
-                        "Led development of a Node.js/React marketplace connecting models, photographers, and agencies, with 100+ paying users.",
+                        "Led development of a Node.js/React marketplace connecting models, photographers, and agencies, with **100+ paying users**.",
                         "Built Stripe subscriptions, a booking calendar, real-time messaging with Socket.io, and AI tools for casting matches and portfolio feedback.",
                         "Interviewed and hired a part-time developer; assigned tasks, reviewed code, and coordinated releases with QA in a 4-person team.",
                         "Developing the React Native (Expo) mobile version of the platform, extending it with native mobile features.",
@@ -161,9 +148,9 @@ const Index = () => {
                   company="HQZen · Cebu, PH (Hybrid) · Promoted from Intern"
                   period="2024 — 2025"
                   highlights={[
-                    "Co-built the scheduling system, a core feature of a time-tracking and recruitment SaaS used by 1,000+ active users.",
+                    "Co-built the scheduling system, a core feature of a time-tracking and recruitment SaaS used by **1,000+ active users**.",
                     "Developed recurring shifts, timezone-aware scheduling, approval workflows, and time-off conflict detection across the Django REST API and Vue.js UI.",
-                    "Promoted from intern to full-time in 2 months; took part in sprint planning and code reviews on the 8-person core Time & Money team.",
+                    "Promoted from intern to full-time in **2 months**; took part in sprint planning and code reviews on the 8-person core Time & Money team.",
                   ]}
                   tech={["Django", "Django REST Framework", "Vue.js"]}
                 />
@@ -173,21 +160,25 @@ const Index = () => {
             {/* Projects */}
             <section>
               <h2 className="section-title">Recent Projects</h2>
-              <div className="space-y-1.5">
+              {/* relative: project previews position against the whole list, not each row */}
+              <div className="relative space-y-1.5">
                 <ProjectItem
                   name="TheLookBookAI"
                   description="The premier platform connecting models, photographers, and agencies worldwide."
                   link="https://thelookbook.ai/"
+                  preview="/projects/thelookbook.webp"
                 />
                 <ProjectItem
                   name="Custom Clad"
                   description="Commercial cladding fabricator and installer site showcasing end-to-end design, manufacture, supply, and installation across Victoria and Queensland."
                   link="https://customclad.com.au/"
+                  preview="/projects/customclad.webp"
                 />
                 <ProjectItem
                   name="RentalizerAI"
                   description="Live personalized guidance and AI-powered tools to find markets, acquire properties, and automate operations."
                   link="https://rentalizer.ai/"
+                  preview="/projects/rentalizer.webp"
                 />
                 {/* <ProjectItem
                   name="ML-Pipeline"
@@ -295,6 +286,95 @@ const Index = () => {
   );
 };
 
+// Copies the address instead of opening a mail app the visitor may not use. The toast offers the
+// mail app as a fallback, and the plain mailto link still works if the clipboard is unavailable.
+const CopyEmailLink = () => {
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timeout = window.setTimeout(() => setCopied(false), 2000);
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+
+  const copyEmail = async (event: MouseEvent<HTMLAnchorElement>) => {
+    if (!navigator.clipboard) return;
+    event.preventDefault();
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      toast("Email copied", {
+        description: EMAIL,
+        action: { label: "Open email app", onClick: () => (window.location.href = `mailto:${EMAIL}`) },
+      });
+    } catch {
+      window.location.href = `mailto:${EMAIL}`;
+    }
+  };
+
+  const Icon = copied ? Check : Mail;
+
+  return (
+    <a href={`mailto:${EMAIL}`} onClick={copyEmail} className="link-subtle flex items-center gap-1.5">
+      <Icon className="w-3.5 h-3.5" aria-hidden="true" />
+      {/* Both labels share one grid cell, so swapping them doesn't shift the links beside it */}
+      <span className="grid">
+        <span className={`col-start-1 row-start-1${copied ? " invisible" : ""}`}>
+          Email<span className="sr-only"> (copies address)</span>
+        </span>
+        <span className={`col-start-1 row-start-1${copied ? "" : " invisible"}`} aria-hidden="true">
+          Copied
+        </span>
+      </span>
+    </a>
+  );
+};
+
+// The real first page is the icon. Hover or keyboard focus drops a readable preview below,
+// tilted like a sheet of paper. md+: the thumbnail hangs into the gutter like the status dot.
+const ResumeDownload = () => (
+  <a
+    href={RESUME_PDF}
+    download
+    className="group relative hidden md:-ml-[34px] md:flex items-center gap-3 rounded-sm text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+  >
+    <img
+      src={RESUME_PREVIEW}
+      alt=""
+      width={22}
+      height={28}
+      className="h-7 w-[22px] shrink-0 rounded-[2px] border border-divider bg-white object-cover object-top shadow-sm"
+    />
+    <span>
+      <span className="block font-medium text-foreground underline decoration-transparent underline-offset-4 transition-colors group-hover:decoration-divider">
+        Download résumé
+      </span>
+      <span className="block text-muted-foreground">One-page PDF</span>
+    </span>
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute left-0 top-full z-20 mt-3 w-[280px] origin-top-left rounded-[3px] border border-divider bg-white opacity-0 shadow-preview transition-opacity duration-200 motion-safe:-translate-y-1 motion-safe:transition-[opacity,transform] motion-safe:duration-300 motion-safe:ease-out group-hover:opacity-100 group-hover:delay-100 group-focus-visible:opacity-100 motion-safe:group-hover:translate-y-0 motion-safe:group-hover:-rotate-[1.5deg] motion-safe:group-focus-visible:translate-y-0 motion-safe:group-focus-visible:-rotate-[1.5deg]"
+    >
+      <img src={RESUME_PREVIEW} alt="" width={280} height={362} className="block w-full rounded-[3px]" />
+    </span>
+  </a>
+);
+
+// Styled like a TechCategory entry (label + muted line) so it reads as part of the résumé
+const AvailabilityStatus = () => (
+  // md+: the dot hangs into the gutter so the text aligns with the right column's left edge
+  <div className="text-sm md:-ml-4">
+    <p className="flex items-center gap-2 font-medium text-foreground">
+      <span className="relative flex h-2 w-2" aria-hidden="true">
+        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-40 motion-safe:animate-ping motion-safe:[animation-duration:2.5s]" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+      </span>
+      Available for work
+    </p>
+    <p className="pl-4 text-muted-foreground">Remote roles and freelance projects</p>
+  </div>
+);
+
 type ExperienceProject = {
   name: string;
   link?: string;
@@ -308,11 +388,23 @@ const TechLine = ({ tech }: { tech?: string[] }) =>
     <p className="mt-2 text-xs text-muted-foreground">{tech.join(" · ")}</p>
   ) : null;
 
+// **text** in a highlight marks a key metric; it renders in the foreground color so it stands out when skimming
+const renderHighlight = (highlight: string) =>
+  highlight.split(/\*\*(.+?)\*\*/).map((part, index) =>
+    index % 2 === 1 ? (
+      <strong key={index} className="font-normal text-foreground tabular-nums">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+
 const HighlightList = ({ highlights }: { highlights: string[] }) => (
   <ul className="space-y-1">
     {highlights.map((highlight, index) => (
       <li key={index} className="text-sm text-muted-foreground leading-relaxed">
-        {highlight}
+        {renderHighlight(highlight)}
       </li>
     ))}
   </ul>
@@ -333,7 +425,7 @@ const ExperienceItem = ({
   tech?: string[];
   projects?: ExperienceProject[];
 }) => (
-  <div className="experience-item">
+  <div className={`experience-item${period.includes("Present") ? " experience-item--current" : ""}`}>
     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
       <div>
         <h3 className="font-medium text-foreground">{role}</h3>
@@ -373,14 +465,31 @@ const ExperienceItem = ({
   </div>
 );
 
+// lg+: hovering or focusing a project shows a screenshot of the live site in the empty
+// right column beside the list (ml-16 = the grid gap, so it lines up with that column).
+// Positioned against the list container, so every preview opens in the same spot.
+const ProjectPreview = ({ src, link }: { src: string; link: string }) => (
+  <span
+    aria-hidden="true"
+    className="pointer-events-none absolute left-full top-0 z-20 ml-16 hidden w-[360px] overflow-hidden rounded-md border border-divider bg-background opacity-0 shadow-preview transition-opacity duration-200 lg:block motion-safe:-translate-x-2 motion-safe:transition-[opacity,transform] motion-safe:duration-300 motion-safe:ease-out group-hover:opacity-100 group-hover:delay-100 group-focus-visible:opacity-100 motion-safe:group-hover:translate-x-0 motion-safe:group-focus-visible:translate-x-0"
+  >
+    <span className="flex h-7 items-center border-b border-divider bg-surface-subtle px-3 text-xs text-muted-foreground">
+      {new URL(link).hostname.replace(/^www\./, "")}
+    </span>
+    <img src={src} alt="" width={360} height={225} loading="lazy" decoding="async" className="block w-full" />
+  </span>
+);
+
 const ProjectItem = ({
   name,
   description,
   link,
+  preview,
 }: {
   name: string;
   description: string;
   link?: string;
+  preview?: string;
 }) => {
   const content = (
     <>
@@ -400,9 +509,10 @@ const ProjectItem = ({
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-start justify-between gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:border-divider hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="group flex items-start justify-between gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:border-divider hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         {content}
+        {preview && <ProjectPreview src={preview} link={link} />}
       </a>
     );
   }

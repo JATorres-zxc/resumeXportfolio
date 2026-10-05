@@ -140,39 +140,77 @@ These keep the résumé feel: little or no new color, nothing flashy.
 
 | # | Do? | Item | Effort | Status |
 |---|-----|------|--------|--------|
-| W1 | [ ] | "Available for work" badge | S | todo |
-| W2 | [ ] | Clock that also shows the visitor's time | S | todo |
-| W3 | [ ] | Page prints as your résumé, plus a "Download résumé" link | M | todo |
-| W4 | [ ] | Screenshot previews on project links | M | todo |
+| W1 | [x] | "Available for work" badge | S | done |
+| W2 | [x] | Clock that also shows the visitor's time | S | done |
+| W3 | [x] | ~~Page prints as your résumé~~, plus a "Download résumé" link | M | done |
+| W4 | [x] | Screenshot previews on project links | M | done |
 | W5 | [ ] | One client quote | S | todo |
-| W6 | [ ] | Make the key numbers stand out | S | todo |
-| W7 | [ ] | Gentle fade-in on load | S | todo |
+| W6 | [x] | Make the key numbers stand out | S | done |
+| W7 | [ ] | Gentle fade-in on load | S | skipped |
 | W8 | [ ] | ⌘K command menu | M | todo |
-| W9 | [ ] | Click "Email" to copy the address | S | todo |
-| W10 | [ ] | Pulsing dot on the current role in the timeline | S | todo |
+| W9 | [x] | Click "Email" to copy the address | S | done |
+| W10 | [x] | Pulsing dot on the current role in the timeline | S | done |
 
 ### W1: "Available for work" badge
 - A small pulsing green dot and text near your name: *"Available for remote roles · replies within 24h"*.
 - It would be the only color on the page, so it gets noticed.
-- **Need from you:** the exact wording, and whether to say "roles", "projects", or both.
+- **Need from you:** ~~the exact wording, and whether to say "roles", "projects", or both.~~ → both
+- **Done (v2, redesigned after feedback):** v1 was an outlined pill under the title with one long sentence. Feedback: too long, not subtle, looked under-designed. Replaced with:
+  - `AvailabilityStatus` in `src/pages/Index.tsx`, styled like a Technical Expertise entry: **label** "Available for work" with the green dot, gray line "Remote roles and freelance projects" under it. No outline, no background. "Replies within 24h" dropped.
+  - **Uses the empty right side:** the header now uses the same 12-column grid as the content below (7 + 5 columns), so the status sits in the right column. On desktop the dot hangs into the gap, so the text starts exactly where "TECHNICAL EXPERTISE" starts (measured: both at 839px). It sits at the bottom of the column, level with the contact row (both end at 192px). The theme switch stays top-right.
+  - Dot: `emerald-500`, a softer and slower pulse (40% opacity, 2.5s), off for reduce-motion visitors
+  - Phones: the status drops below the contact links, same style
+  - Also: the "·" after "Manila, Philippines" now shows only at `lg`+, where the contact row fits on one line (at 768px it was left hanging after the wrap). The name has `md:whitespace-nowrap` so it never wraps on tablets.
+  - Checked: 1440, 1024, 768, 390, 320px; light and dark; no horizontal scroll; Lighthouse Accessibility 100
+  - **To turn off later:** remove `<AvailabilityStatus />` from the header
 
 ### W2: Clock with the visitor's time
 - Current: `02:35:03 PM · GMT+8 (Manila, Philippines)`
 - Proposed: `2:35 PM in Manila · 2:35 AM for you (12h ahead)`
 - It answers the first question an overseas client has. Optionally, add "Online now" or "Offline" based on your working hours.
 - Seconds could go, since they make the bar flicker every second.
-- **Need from you:** your working hours, if you want the online/offline status.
+- **Need from you:** ~~your working hours~~ → none, so no online/offline status
+- **Done:**
+  - New `src/components/local-time.tsx` (`LocalTime`), used in the top bar of `Index.tsx`
+  - Shows Manila time without seconds, plus the gap from the visitor's time zone: "3:04 PM in Manila · 12 hours ahead of you"
+  - Adds the weekday only when Manila is on a different day from the visitor: "Tue 9:00 AM in Manila · 12 hours ahead of you" (US visitor, Monday evening)
+  - Handles "behind you" (NZ, Australia), half-hour and 45-minute zones ("2 hours 30 min ahead of you" for India, "2 hours 15 min" for Nepal), and "same time as you" (Manila/Singapore/Perth)
+  - Shows the visitor's time difference rather than their clock (they already know their own time). We dropped the "(12h ahead)" wording in favor of plain words.
+  - **Performance:** the old clock updated state every second, re-rendering the whole page (including the snow) 60 times a minute. It's now isolated in its own component and updates once a minute, on the minute.
+  - `<time dateTime>` for the timestamp. The icon and dot are hidden from screen readers.
+  - Checked: rendered the real component under 10 time zones and a frozen "next day" clock (all correct). In the browser, checked 1440 and 320px (the longest text wraps cleanly, no overflow). Watched it tick 3:05 → 3:06 at the minute boundary. Types, lint and build clean.
 
 ### W3: Page prints as your résumé
 - A print stylesheet (`@media print`) so Cmd+P gives a clean one-page PDF: no clock, no switch, no snow, links shown as text.
 - A small "Download résumé" link in the header that triggers print or links to a saved PDF.
-- **Need from you:** print-to-PDF only, or also a saved PDF file in `public/`?
+- **Need from you:** ~~print-to-PDF only, or also a saved PDF file?~~ → your own PDF, `public/John_Angelo_Torres_Resume.pdf`. No print stylesheet.
+- **Done (v2, redesigned after feedback):** v1 was an outlined "↓ Resume" pill next to the theme switch. Feedback: not impressive. Replaced with `ResumeDownload` in `src/pages/Index.tsx`:
+  - **At rest (subtle):** a 22px thumbnail of your **actual résumé page** with a hairline paper edge, next to a two-line entry styled like the status: **Download résumé** / *One-page PDF*. It sits at the top of the header's right column with the status at the bottom. The thumbnail hangs into the gap like the green dot, so the résumé text, the status text and "TECHNICAL EXPERTISE" all start at the same x (measured 839px). The theme switch stays at the far right.
+  - **On hover or keyboard focus (the wow):** a 280px readable preview of the page drops below the link with a paper shadow, settling at a slight −1.5° tilt like a sheet handed across a desk. There's a 100ms delay so it doesn't flash when the cursor just passes over. Reduce-motion visitors get a plain fade with no movement. The label gets a faint underline on hover.
+  - Click downloads `John_Angelo_Torres_Resume.pdf` (`download` attribute). Screen readers hear "Download résumé, One-page PDF". The images are decorative (`alt=""`, preview `aria-hidden`).
+  - **Phones:** no hover, so it stays a simple "Résumé" link with a download icon in the contact row
+  - **New file:** `public/resume-preview.webp`, page 1 of the PDF (560×725, 64 KB, 2× for sharp screens). One image serves both the thumbnail and the preview.
+  - **When you update the PDF, regenerate the preview** (or ask me):
+    ```sh
+    qlmanage -t -s 1200 -o /tmp public/John_Angelo_Torres_Resume.pdf
+    python3 -c "from PIL import Image; s=Image.open('/tmp/John_Angelo_Torres_Resume.pdf.png'); p=Image.new('RGB',s.size,'white'); p.paste(s,mask=s.split()[-1]); p.resize((560,round(s.size[1]*560/s.size[0])),Image.LANCZOS).save('public/resume-preview.webp',quality=82,method=6)"
+    ```
+  - Checked: 1440px light and dark, at rest, on hover and with keyboard focus (visible focus ring, preview opens); 768px tablet; 390px phone; no horizontal scroll. Lighthouse Accessibility 100. Types, lint and build clean.
 
 ### W4: Screenshot previews on project links
 - Hovering a project link shows a small card with a screenshot of the live site. It uses the hover-card component that's already installed.
 - Optional: screenshots in grayscale that turn color on hover, to match the monochrome look.
 - On mobile, show a small thumbnail instead, since phones have no hover.
-- **Need from you:** permission to take screenshots of TheLookBook, Rentalizer, and Custom Clad, or your own images.
+- **Need from you:** ~~permission to take screenshots~~ → yes, take them. ~~Mobile thumbnail~~ → skipped, as you asked.
+- **Done:**
+  - **Screenshots:** captured each live site's homepage at 1440×900 in Chrome (Custom Clad's custom cursor dot hidden, waited out Rentalizer's loading screen), saved as `public/projects/{thelookbook,customclad,rentalizer}.webp` at 720×450 (2× for sharp screens), 63 KB total, lazy-loaded
+  - **Where it appears:** hovering (or keyboard-focusing) a Recent Projects item shows the screenshot in the **empty right column beside the list**. Technical Expertise and Education end well above this section (570px+ gap even at 1024px). The frame lines up with the right column (`ml-16` = grid gap). Every preview opens at the top of the list, so it works like one viewer that swaps screenshots as you move down the list. It fits within the list's height and never reaches the footer.
+  - **Frame:** a thin border with a small top bar showing the domain (`thelookbook.ai`), so you can see where the link goes. No fake browser buttons. Same `shadow-preview` as the résumé preview (now a shared class in `index.css`).
+  - **Motion:** fade + 8px slide toward the column, 100ms delay so it doesn't flash when the cursor passes by. Reduce-motion visitors get a plain fade.
+  - **Desktop only (1024px+).** Nothing on tablets/phones.
+  - New `ProjectPreview` component and `preview` prop on `ProjectItem` in `src/pages/Index.tsx`. To add one for a new project, save a 720×450 WebP in `public/projects/` and pass `preview="/projects/name.webp"`.
+  - **Screenshots don't update themselves.** If a client redesigns their site, retake them (or ask me).
+  - Checked: 1440 light (hover) and dark (keyboard focus), 1024 (fits, no overlap, no horizontal scroll), 390 (previews hidden). Lighthouse Accessibility 100. Types, lint and build clean.
 
 ### W5: One client quote
 - One line in Instrument Serif *italic*, with the client's name and role.
@@ -182,11 +220,18 @@ These keep the résumé feel: little or no new color, nothing flashy.
 ### W6: Make the key numbers stand out
 - Show "500+", "1,000+", "100+", "2 months" in the darker text color, with even-width digits.
 - Recruiters skim, and the numbers catch the eye without adding any color.
+- **Done:**
+  - Emphasized four key metrics, each with its unit so it reads on its own: **500+ paying users** (Rentalizer), **100+ paying users** (TheLookBook), **1,000+ active users** (HQZen), **2 months** (intern → full-time)
+  - Shown in the foreground color (near-black / near-white in dark mode), with no weight change, so it stays subtle. `tabular-nums` for even-width digits.
+  - Secondary numbers ("3+ clients", "4-person team", "8-person core team") stay gray so the emphasis doesn't become noise
+  - **How to edit:** wrap any part of a highlight in `**double asterisks**` in `src/pages/Index.tsx` and it renders emphasized (`renderHighlight` helper). It uses `<strong>`, so screen readers also get the emphasis.
+  - Checked: all four render (no stray asterisks), light and dark. Types, lint and build clean.
 
 ### W7: Gentle fade-in on load
 - Sections fade up 8px one after another, about 40ms apart.
 - Turned off for visitors whose system is set to reduce motion.
 - No new library needed: CSS or the already-installed `tailwindcss-animate`.
+- **Skipped:** built and tested (staggered fade-up by visual row), then removed. You didn't like it.
 
 ### W8: ⌘K command menu
 - A hidden menu with: copy email, download résumé, open GitHub/LinkedIn, switch theme, jump to a section.
@@ -196,9 +241,21 @@ These keep the résumé feel: little or no new color, nothing flashy.
 ### W9: Click "Email" to copy the address
 - `mailto:` often opens an email app the recruiter doesn't use.
 - Clicking copies the address and shows a small "Copied" message, using `sonner`, which is already installed.
+- **Done:**
+  - `CopyEmailLink` in `src/pages/Index.tsx` (address in one `EMAIL` constant)
+  - Click → copies `gelodevelops@gmail.com`. The link changes to "✓ Copied" for 2s, and a toast says **Email copied** with the address and an **Open email app** button (mailto) for people who wanted their mail app
+  - Both labels share one grid cell, so "Copied" (wider) doesn't shift GitHub/LinkedIn/WhatsApp. Verified: link positions identical before/after.
+  - Falls back to the normal `mailto:` link if the clipboard API is unavailable or blocked
+  - Screen readers: link reads "Email (copies address)", and the toast is announced
+  - Checked in Playwright: clipboard contains the address, no navigation, toast text correct, label resets after 2s
 
 ### W10: Pulsing dot on the current role
 - The timeline dot for "2022 — Present" gets a soft pulse to show it's ongoing. A small detail that matches W1.
+- **Done:**
+  - `.experience-item--current` in `src/index.css`: a ring in the same ink color as the dot grows to ~3× and fades every 2.5s (not green, so green keeps meaning "available")
+  - Applied automatically to any role whose period includes "Present" (`ExperienceItem`)
+  - Off for reduce-motion visitors (`@media (prefers-reduced-motion: no-preference)`), where it's a normal dot
+  - Checked in Playwright: only the current role pulses (1 of 2), the ring animates over a cycle, and there's no animation with reduce-motion
 
 ---
 
@@ -222,6 +279,15 @@ _Write any decisions or changes of mind here._
 | Date | Item | Change |
 |------|------|--------|
 | 2026-10-05 | — | Checklist created from the review |
+| 2026-10-05 | W9, W10 | Email click copies the address (inline "Copied" + toast with mail-app fallback); soft pulse ring on the current role's timeline dot |
+| 2026-10-05 | W7 | Built, then removed by you (didn't like it) |
+| 2026-10-05 | W6 | Key metrics (500+ / 100+ / 1,000+ users, 2 months) shown in the foreground color via `**…**` markers |
+| 2026-10-05 | W4 | Project hover previews: live-site screenshots in the empty right column beside Recent Projects (desktop only) |
+| 2026-10-05 | W3 | Redesigned: real résumé-page thumbnail + "Download résumé" in the right column; hover/focus drops a tilted paper preview of the page |
+| 2026-10-05 | W3 | "Resume" download button beside the theme switch (in the contact row on phones), linking to your PDF |
+| 2026-10-05 | W2 | Clock shows Manila time + gap from the visitor ("12 hours ahead of you"), weekday when it differs, updates once a minute |
+| 2026-10-05 | W1 | Redesigned: status moved to the header's right column, aligned with Technical Expertise, styled as a résumé entry (no pill) |
+| 2026-10-05 | W1 | Availability badge (roles + freelance projects) with a motion-safe pulsing green dot |
 | 2026-10-05 | F10 | No light flash for dark-mode visitors; follows the OS theme until the visitor picks one; stops saving "light" for every new visitor |
 | 2026-10-05 | F8 | New JT monogram favicon (SVG + ICO + Apple touch icon) |
 | 2026-10-05 | F7 | Readable gray for tech lines, `<main>` element, project link labels fixed. Accessibility 94 → 100 |
