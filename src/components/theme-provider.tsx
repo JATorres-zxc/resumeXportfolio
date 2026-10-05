@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 type Theme = "light" | "dark";
 
@@ -10,33 +10,56 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
+// Keep in sync with the inline theme script in index.html
 const STORAGE_KEY = "resumeXportfolio-theme";
 
+const getStoredTheme = (): Theme | null => {
+  try {
+    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
+    return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+  } catch {
+    return null;
+  }
+};
+
+// index.html applies the theme before first paint, so start from what it chose
+const getInitialTheme = (): Theme =>
+  document.documentElement.classList.contains("dark") ? "dark" : "light";
+
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const storedTheme = window.localStorage.getItem(STORAGE_KEY);
-    if (storedTheme === "light" || storedTheme === "dark") {
-      setTheme(storedTheme);
-    }
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
+  // Follow the OS theme until the visitor picks one themselves
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (!getStoredTheme()) setThemeState(event.matches ? "dark" : "light");
+    };
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
   }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof document === "undefined") return;
-    const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
-    window.localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme]);
+  // Only an explicit choice is saved, so first-time visitors keep following their OS
+  const setTheme = useCallback((nextTheme: Theme) => {
+    setThemeState(nextTheme);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    } catch {
+      // Storage unavailable (e.g. private mode); the choice lasts for this page view
+    }
+  }, []);
 
   const value = useMemo(
     () => ({
       theme,
       setTheme,
-      toggleTheme: () => setTheme((prev) => (prev === "light" ? "dark" : "light")),
+      toggleTheme: () => setTheme(theme === "light" ? "dark" : "light"),
     }),
-    [theme],
+    [theme, setTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

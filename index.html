@@ -3,22 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GELODEVELOPS</title>
-    <meta name="author" content="gelodevelops" />
+    <script>
+      // Apply the theme before first paint to avoid a light flash.
+      // Saved choice wins; otherwise follow the OS. Key must match theme-provider.tsx.
+      (function () {
+        try {
+          var stored = localStorage.getItem("resumeXportfolio-theme");
+          var dark =
+            stored === "dark" ||
+            (stored !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
+        } catch (e) {}
+      })();
+    </script>
+    <title>John Angelo Torres · Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Full stack developer with 4+ years building web and mobile apps in React, Vue.js, TypeScript, Node.js, and Django. Open to remote roles worldwide."
+    />
+    <meta name="author" content="John Angelo Torres" />
+    <link rel="canonical" href="https://johnangelotorres.vercel.app/" />
 
-    <meta property="og:title" content="gelodevelops | Full Stack Developer" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Gelasio&display=swap"
+    />
+
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://johnangelotorres.vercel.app/" />
+    <meta property="og:site_name" content="John Angelo Torres" />
+    <meta property="og:title" content="John Angelo Torres · Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full stack developer building production web and mobile apps with React, Vue.js, TypeScript, Node.js, and Django. Open to remote roles worldwide."
+    />
+    <meta property="og:image" content="https://johnangelotorres.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="John Angelo Torres — Full Stack Developer, Web and Mobile Applications" />
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="gelodevelops | Full Stack Developer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="John Angelo Torres · Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full stack developer building production web and mobile apps with React, Vue.js, TypeScript, Node.js, and Django. Open to remote roles worldwide."
+    />
+    <meta name="twitter:image" content="https://johnangelotorres.vercel.app/og.png" />
+    <meta name="twitter:image:alt" content="John Angelo Torres — Full Stack Developer, Web and Mobile Applications" />
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "gelodevelops",
+      "name": "John Angelo Torres",
+      "alternateName": "gelodevelops",
       "jobTitle": "Full Stack Developer",
-      "url": "",
+      "url": "https://johnangelotorres.vercel.app/",
+      "image": "https://johnangelotorres.vercel.app/og.png",
+      "email": "mailto:gelodevelops@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Manila",
+        "addressCountry": "PH"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "University of the Philippines Cebu"
+      },
+      "knowsAbout": ["React", "Vue.js", "TypeScript", "Node.js", "Django", "React Native"],
       "sameAs": [
         "https://github.com/JATorres-zxc",
         "https://www.linkedin.com/in/john-angelo-torres-75b561349/"

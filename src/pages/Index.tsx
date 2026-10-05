@@ -4,9 +4,8 @@ import Snowfall from "react-snowfall";
 import { useState, useEffect } from "react";
 
 const Index = () => {
-  // Show snowfall only during "ber" months (September 1 - December 31)
-  const currentMonth = new Date().getMonth(); // 0-indexed: 8=Sept, 9=Oct, 10=Nov, 11=Dec
-  const isBerMonth = currentMonth >= 8 && currentMonth <= 11;
+  // Show snowfall only in December
+  const isDecember = new Date().getMonth() === 11; // 0-indexed
 
   // Local time state
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -31,20 +30,23 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {isBerMonth && (
+      {isDecember && (
         <Snowfall
+          snowflakeCount={40}
+          speed={[0.3, 1.0]}
+          wind={[-0.3, 0.5]}
           style={{
             position: 'fixed',
             width: '100vw',
             height: '100vh',
-            zIndex: 9999,
+            zIndex: 0,
             pointerEvents: 'none'
           }}
         />
       )}
 
       {/* Local Time Display */}
-      <div className="bg-surface-subtle/50">
+      <div className="relative z-10 bg-surface-subtle/50">
         <div className="container max-w-5xl">
           <div className="flex items-center justify-center gap-2 py-3 text-xs text-muted-foreground">
             <Clock className="w-3.5 h-3.5" />
@@ -55,12 +57,12 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="container max-w-5xl py-6 md:py-8">
+      <div className="container relative z-10 max-w-5xl py-6 md:py-8">
         {/* Header */}
-        <header className="mb-12 md:mb-16">
+        <header className="relative mb-10 md:mb-12">
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div>
-              <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2">
+              <h1 className="font-serif text-4xl md:text-5xl font-normal tracking-tight mb-2 pr-20 md:pr-0">
                 John Angelo Torres
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-2 md:mb-4">
@@ -72,7 +74,7 @@ const Index = () => {
                   Manila, Philippines
                 </span>
                 <span className="hidden md:inline text-divider">·</span>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <a href="mailto:gelodevelops@gmail.com" className="link-subtle flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5" />
                     <span>Email</span>
@@ -92,20 +94,20 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div className="hidden md:block">
+            <div className="absolute right-0 top-1 md:static">
               <ThemeToggle />
             </div>
           </div>
         </header>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+        <main className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
           {/* Left Column */}
           <div className="md:col-span-7 space-y-12">
             {/* About */}
             <section>
               <h2 className="section-title">About</h2>
-              <p className="text-foreground leading-relaxed sm:text-justify">
+              <p className="text-foreground leading-relaxed">
                 I'm a full stack developer with 4+ years of experience building production web applications for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm open to remote roles worldwide.
                 {/* Hidden until received: I'm an AWS Certified Developer – Associate. */}
               </p>
@@ -248,7 +250,7 @@ const Index = () => {
                 <div>
                   <p className="font-medium text-foreground">BS Computer Science</p>
                   <p className="text-sm text-muted-foreground">University of the Philippines - Cebu · 2025</p>
-                  <p className="text-xs text-muted-foreground/70">Thesis: Machine learning with a focus on smart contracts</p>
+                  <p className="text-xs text-muted-foreground">Thesis: Machine learning with a focus on smart contracts</p>
                 </div>
               </div>
             </section>
@@ -280,7 +282,7 @@ const Index = () => {
               </div>
             </section> */}
           </div>
-        </div>
+        </main>
 
         {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-divider">
@@ -303,13 +305,13 @@ type ExperienceProject = {
 
 const TechLine = ({ tech }: { tech?: string[] }) =>
   tech && tech.length > 0 ? (
-    <p className="mt-2 text-xs text-muted-foreground/70">{tech.join(" · ")}</p>
+    <p className="mt-2 text-xs text-muted-foreground">{tech.join(" · ")}</p>
   ) : null;
 
 const HighlightList = ({ highlights }: { highlights: string[] }) => (
   <ul className="space-y-1">
     {highlights.map((highlight, index) => (
-      <li key={index} className="text-sm text-muted-foreground leading-relaxed sm:text-justify">
+      <li key={index} className="text-sm text-muted-foreground leading-relaxed">
         {highlight}
       </li>
     ))}
@@ -399,7 +401,6 @@ const ProjectItem = ({
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-start justify-between gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:border-divider hover:bg-surface-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        aria-label={`View ${name} project`}
       >
         {content}
       </a>

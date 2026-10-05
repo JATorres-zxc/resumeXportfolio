@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -44,7 +42,8 @@
     --surface-subtle: 0 0% 98%;
 
     /* Typography */
-    --font-serif: 'Instrument Serif', Georgia, serif;
+    /* Gelasio is metric-compatible with Georgia; it only downloads where Georgia isn't installed */
+    --font-serif: Georgia, 'Gelasio', serif;
     --font-sans: 'DM Sans', system-ui, sans-serif;
   }
 
@@ -101,7 +100,8 @@
     font-feature-settings: "cv11", "ss01";
   }
 
-  h1, h2, h3, h4 {
+  /* Serif is reserved for the name; everything else uses DM Sans */
+  h1 {
     font-family: var(--font-serif);
   }
 }
