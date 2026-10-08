@@ -46,7 +46,7 @@ const Index = () => {
               John Angelo Torres
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-2 md:mb-4">
-              Full Stack Developer | Web and Mobile Applications
+              Full Stack Developer | AI Native Developer
             </p>
             <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
@@ -95,7 +95,7 @@ const Index = () => {
             <section>
               <h2 className="section-title">About</h2>
               <p className="text-foreground leading-relaxed">
-                I'm a full stack developer with 4+ years of experience building production web applications for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm open to remote roles worldwide.
+                I'm a full stack and AI-native developer with 4+ years of experience building production web applications and AI-powered products for international clients and a SaaS product team. I work across React, Vue.js, TypeScript, Node.js, and Django, with hands-on experience in AI integrations, subscription payments, real-time features, testing, and AWS deployment. I'm open to remote roles worldwide.
                 {/* Hidden until received: I'm an AWS Certified Developer – Associate. */}
               </p>
             </section>
